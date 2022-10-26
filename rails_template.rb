@@ -24,7 +24,7 @@ gsub_file("Gemfile", '# gem "sassc-rails"', 'gem "sassc-rails"')
 ########################################
 run "rm -rf app/assets/stylesheets"
 run "rm -rf vendor"
-run "curl -L https://github.com/Pascaltib/templates/blob/main/rails-stylesheet.zip > stylesheets.zip"
+run "curl -L https://github.com/Pascaltib/templates/raw/main/rails-stylesheet.zip > stylesheets.zip"
 run "unzip stylesheets.zip -d app/assets && rm -f stylesheets.zip && rm -f app/assets/rails-stylesheet/README.md"
 run "mv app/assets/rails-stylesheet app/assets/stylesheets"
 
