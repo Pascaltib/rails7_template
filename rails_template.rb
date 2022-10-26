@@ -26,8 +26,8 @@ gsub_file("Gemfile", '# gem "sassc-rails"', 'gem "sassc-rails"')
 run "rm -rf app/assets/stylesheets"
 run "rm -rf vendor"
 run "curl -L https://github.com/Pascaltib/rails7_stylesheet/archive/main.zip > stylesheets.zip"
-run "unzip stylesheets.zip -d app/assets && rm -f stylesheets.zip && rm -f app/assets/rails7-stylesheet-main/README.md"
-run "mv app/assets/rails7-stylesheet-main app/assets/stylesheets"
+run "unzip stylesheets.zip -d app/assets && rm -f stylesheets.zip && rm -f app/assets/rails7_stylesheet-main/README.md"
+run "mv app/assets/rails7_stylesheet-main app/assets/stylesheets"
 
 inject_into_file "config/initializers/assets.rb", before: "# Precompile additional assets." do
   <<~RUBY
