@@ -191,11 +191,14 @@ after_bundle do
   ########################################
   run "curl -L https://raw.githubusercontent.com/lewagon/rails-templates/master/.rubocop.yml > .rubocop.yml"
 
+  # Tailwind
+  ########################################
+  run "bundle add tailwindcss-rails"
+  run "rails tailwindcss:install"
+  
   # Git
   ########################################
   git :init
   git add: "."
-  git commit: "-m 'Initial commit from template'"
-  run "bundle add tailwindcss-rails"
-  run "rails tailwindcss:install"
+  run "git commit -m 'initial template commit'"
 end
