@@ -35,6 +35,24 @@ inject_into_file "config/initializers/assets.rb", before: "# Precompile addition
   RUBY
 end
 
+# Javascript components folder
+########################################
+run "mkdir app/javascript/components"
+run "touch app/javascript/components/test_component.js"
+
+append_file "app/javascript/components/test_component.js", <<~JAVASCRIPT
+  const testComponent = () => {
+    console.log("running javascript from test component")
+  }
+
+  export {testComponent}
+JAVASCRIPT
+
+append_file "app/javascript/application.js", <<~JAVASCRIPT
+  import { testComponent } from "./components/test_component"
+  testComponent();
+JAVASCRIPT
+
 # Layout
 ########################################
 
