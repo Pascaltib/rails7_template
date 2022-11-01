@@ -3,7 +3,6 @@
 
 ```
 rails new \
---css tailwind \
 -d postgresql \
 -j webpack \
 -m https://raw.githubusercontent.com/Pascaltib/templates/main/rails_template.rb \
