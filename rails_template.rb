@@ -195,5 +195,5 @@ after_bundle do
   ########################################
   git :init
   git add: "."
-  git commit: "-m 'Initial commit for pascaltib's rails template'"
+  git commit: "-m `Initial commit from template`"
 end
