@@ -195,5 +195,7 @@ after_bundle do
   ########################################
   git :init
   git add: "."
-  git commit: "-m `Initial commit from template`"
+  git commit: "-m 'Initial commit from template'"
+  run "bundle add tailwindcss-rails"
+  run "rails tailwindcss:install"
 end
