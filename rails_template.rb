@@ -29,11 +29,11 @@ end
 # run "unzip stylesheets.zip -d app/assets && rm -f stylesheets.zip && rm -f app/assets/rails7_stylesheet-main/README.md"
 # run "mv app/assets/rails7_stylesheet-main app/assets/stylesheets"
 
-inject_into_file "config/initializers/assets.rb", before: "# Precompile additional assets." do
-  <<~RUBY
-    Rails.application.config.assets.paths << Rails.root.join("node_modules")
-  RUBY
-end
+# inject_into_file "config/initializers/assets.rb", before: "# Precompile additional assets." do
+#   <<~RUBY
+#     Rails.application.config.assets.paths << Rails.root.join("node_modules")
+#   RUBY
+# end
 
 # Layout
 ########################################
@@ -68,17 +68,17 @@ markdown_file_content = <<~MARKDOWN
 MARKDOWN
 file "README.md", markdown_file_content, force: true
 
-# Generators
-########################################
-generators = <<~RUBY
-  config.generators do |generate|
-    generate.assets false
-    generate.helper false
-    generate.test_framework :test_unit, fixture: false
-  end
-RUBY
+# # Generators
+# ########################################
+# generators = <<~RUBY
+#   config.generators do |generate|
+#     generate.assets false
+#     generate.helper false
+#     generate.test_framework :test_unit, fixture: false
+#   end
+# RUBY
 
-environment generators
+# environment generators
 
 ########################################
 # After bundle
