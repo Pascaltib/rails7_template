@@ -19,15 +19,15 @@ RUBY
 end
 
 # Uncomment sassc gem
-gsub_file("Gemfile", '# gem "sassc-rails"', 'gem "sassc-rails"')
+# gsub_file("Gemfile", '# gem "sassc-rails"', 'gem "sassc-rails"')
 
 # Assets
 ########################################
-run "rm -rf app/assets/stylesheets"
-run "rm -rf vendor"
-run "curl -L https://github.com/Pascaltib/rails7_stylesheet/archive/main.zip > stylesheets.zip"
-run "unzip stylesheets.zip -d app/assets && rm -f stylesheets.zip && rm -f app/assets/rails7_stylesheet-main/README.md"
-run "mv app/assets/rails7_stylesheet-main app/assets/stylesheets"
+# run "rm -rf app/assets/stylesheets"
+# run "rm -rf vendor"
+# run "curl -L https://github.com/Pascaltib/rails7_stylesheet/archive/main.zip > stylesheets.zip"
+# run "unzip stylesheets.zip -d app/assets && rm -f stylesheets.zip && rm -f app/assets/rails7_stylesheet-main/README.md"
+# run "mv app/assets/rails7_stylesheet-main app/assets/stylesheets"
 
 inject_into_file "config/initializers/assets.rb", before: "# Precompile additional assets." do
   <<~RUBY
@@ -104,24 +104,6 @@ after_bundle do
     *.swp
     .DS_Store
   TXT
-  
-  # Javascript components folder
-  ########################################
-  run "mkdir app/javascript/components"
-  run "touch app/javascript/components/test_component.js"
-
-  append_file "app/javascript/components/test_component.js", <<~JAVASCRIPT
-    const testComponent = () => {
-      console.log("running javascript from test component")
-    }
-
-    export {testComponent}
-  JAVASCRIPT
-
-  append_file "app/javascript/application.js", <<~JAVASCRIPT
-    import { testComponent } from "./components/test_component"
-    testComponent();
-  JAVASCRIPT
   
   # Devise install + user
   ########################################
