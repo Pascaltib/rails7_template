@@ -11,11 +11,8 @@ inject_into_file "Gemfile", before: "group :development, :test do" do
   RUBY
 end
 
-inject_into_file "Gemfile", after: 'gem "debug", platforms: %i[ mri mingw x64_mingw ]' do
-<<-RUBY
-
-  gem "dotenv-rails"
-RUBY
+inject_into_file "Gemfile", after: "group :development, :test do" do
+  "\n  gem \"dotenv-rails\""
 end
 
 # Uncomment sassc gem
@@ -48,10 +45,10 @@ gsub_file(
 ########################################
 file "app/views/shared/_flashes.html.erb", <<~HTML
   <% if notice %>
-    
+
   <% end %>
   <% if alert %>
-    
+
   <% end %>
 HTML
 
@@ -104,7 +101,7 @@ after_bundle do
     *.swp
     .DS_Store
   TXT
-  
+
   # Devise install + user
   ########################################
   generate("devise:install")
@@ -123,27 +120,17 @@ after_bundle do
   ########################################
   rails_command "db:migrate"
   generate("devise:views")
-  gsub_file(
-    "app/views/devise/registrations/new.html.erb",
-    "<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>",
-    "<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: { turbo: :false }) do |f| %>"
-  )
-  gsub_file(
-    "app/views/devise/sessions/new.html.erb",
-    "<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>",
-    "<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: :false }) do |f| %>"
-  )
   link_to = <<~HTML
     <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
   HTML
   button_to = <<~HTML
-    <div style="display:flex; align-items:center;">
+    <div class="flex items-center">
       <div>Unhappy?</div>
-      <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-link" %>
+      <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %>
     </div>
   HTML
   gsub_file("app/views/devise/registrations/edit.html.erb", link_to, button_to)
-  
+
   # Pages Controller
   ########################################
   run "rm app/controllers/pages_controller.rb"
@@ -155,13 +142,13 @@ after_bundle do
       end
     end
   RUBY
-  
+
   # Environments
   ########################################
   environment 'config.action_mailer.default_url_options = { host: "http://localhost:3000" }', env: "development"
   environment 'config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }', env: "production"
 
-  
+
   # Heroku
   run "bundle lock --add-platform x86_64-linux"
 
@@ -177,7 +164,7 @@ after_bundle do
   ########################################
   run "bundle add tailwindcss-rails"
   run "rails tailwindcss:install"
-  
+
   # Git
   ########################################
   git :init
